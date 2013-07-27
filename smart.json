@@ -3,7 +3,7 @@
   "description": "Random text and data generator",
   "homepage": "https://github.com/subhog/meteor-fake",
   "author": "Hubert Orlik Grzesik <hubert@orlikarnia.com>",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "git": "https://github.com/subhog/meteor-fake.git",
   "packages": {}
 }
