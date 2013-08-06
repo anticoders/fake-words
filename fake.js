@@ -113,6 +113,9 @@ var getDomain = function() {
   return getWord(2) + domains[Math.floor(Math.random() * 8)];
 };
 
+var getCustom = function(customArray) {
+  return customArray[Math.floor(Math.random() * customArray.length)];
+};
 
 
 
@@ -160,7 +163,13 @@ Fake.paragraph = function() {
 };
 
 
-
+Fake.custom = function(customArray, length) {
+  var result = getCustom(customArray);
+  for (var i = 1; i < length; i++) {
+    result += ' ' + getCustom(customArray);
+  }
+  return result;
+};
 
 
 
