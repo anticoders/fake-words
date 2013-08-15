@@ -3,5 +3,6 @@ Package.describe({
 });
 
 Package.on_use(function (api, where) {
+  api.export('Fake');
   api.add_files('fake.js', ['client', 'server']);
 });
