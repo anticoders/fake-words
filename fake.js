@@ -131,9 +131,15 @@ Fake.user = function() {
   var domain = getDomain();
 
   return {
-    name: name,
-    surname: surname,
-    email: (name + '@' + domain).toLowerCase(),
+    username: name + '@' + domain,
+    emails: {
+      address: (name + '@' + domain).toLowerCase()
+    },
+    admin: false,
+    profile: {
+      name: name,
+      surname: surname
+    }
   };
 };
 
