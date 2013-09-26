@@ -138,8 +138,10 @@ Fake.user = function() {
 };
 
 
-Fake.sentence = function() {
-  var length = 4 + Math.floor(Math.random() * 8);
+Fake.sentence = function(length) {
+  if(!length){
+    var length = 4 + Math.floor(Math.random() * 8);
+  }
   var ending = (Math.random() < 0.95) ? '.' : (Math.random() < 0.5) ? '!' : '?';
   var result = getWord();
   result = result.slice(0,1).toUpperCase() + result.slice(1).toLowerCase();
@@ -150,44 +152,13 @@ Fake.sentence = function() {
 };
 
 
-Fake.paragraph = function() {
-  var length = 6 + Math.floor(Math.random() * 8);
+Fake.paragraph = function(length) {
+  if(!length){
+    var length = 6 + Math.floor(Math.random() * 8);
+  }
   var result = Fake.sentence();
   for(var i = 1; i < length; ++i) {
     result += ' ' + Fake.sentence();
   }
   return result;
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
