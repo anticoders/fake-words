@@ -88,7 +88,8 @@ Returns a random word.
     - email
     - emails.address,
     - profile.name
-Example:
+
+*Example:*
 
         Fake.user({
             fields: ['name', 'username', 'emails.address', 'profile.name'],
@@ -102,6 +103,10 @@ Example:
 ### `Fake.color()`
 
 Returns a random named html color.
+
+*Sample result:*
+
+> navajowhite
 
 
 &nbsp;
