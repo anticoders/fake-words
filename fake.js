@@ -162,3 +162,45 @@ Fake.paragraph = function(length) {
   }
   return result;
 };
+
+
+
+Fake.augmentedUser = function() {
+  var name = getName();
+  var surname = getWord(3);
+  surname = surname.slice(0,1).toUpperCase() + surname.slice(1).toLowerCase();
+  var domain = getDomain();
+
+  return {
+    username: name + '@' + domain,
+    emails: {
+      address: (name + '@' + domain).toLowerCase()
+    },
+    admin: false,
+    profile: {
+      name: name + ' ' + surname,
+    }
+  };
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
