@@ -1,5 +1,5 @@
 
-## Fake text and data generator for Meteor.js
+# Fake text and data generator for Meteor.js
 
 From an article about *Lorem ipsum*:
 
@@ -18,7 +18,11 @@ If you need more functionality, like fake web address or geographical location, 
 # API
 
 
-# `Fake.word()`
+&nbsp;
+
+&nbsp;
+
+### `Fake.word()`
 
 Returns a random word.
 
@@ -27,7 +31,11 @@ Returns a random word.
 > Ingbelytion
 
 
-## `Fake.sentence([length])`
+&nbsp;
+
+&nbsp;
+
+### `Fake.sentence([length])`
 
 *Sample result:*
 
@@ -38,8 +46,11 @@ Returns a random word.
 - `length`: number of words in the sentence
 
 
+&nbsp;
 
-## `Fake.paragraph([length])`
+&nbsp;
+
+### `Fake.paragraph([length])`
 
 
 *Sample result:*
@@ -51,6 +62,10 @@ Returns a random word.
 - `length`: number of sentences in the paragraph
 
 
+
+&nbsp;
+
+&nbsp;
 
 ### `Fake.user([params])`
 
@@ -79,9 +94,19 @@ Example:
             fields: ['name', 'username', 'emails.address', 'profile.name'],
         });
 
+
+&nbsp;
+
+&nbsp;
+
 ### `Fake.color()`
 
 Returns a random named html color.
+
+
+&nbsp;
+
+&nbsp;
 
 ### `Fake.fromArray(customArray)`
 
