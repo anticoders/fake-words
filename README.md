@@ -15,11 +15,10 @@ If you need more functionality, like fake web address or geographical location, 
 
 
 
-## API
+# API
 
------
 
-### `Fake.word()`
+# `Fake.word()`
 
 Returns a random word.
 
@@ -27,9 +26,8 @@ Returns a random word.
 
 > Ingbelytion
 
------
 
-### `Fake.sentence([length])`
+## `Fake.sentence([length])`
 
 *Sample result:*
 
@@ -39,9 +37,9 @@ Returns a random word.
 
 - `length`: number of words in the sentence
 
------
 
-### `Fake.paragraph([length])`
+
+## `Fake.paragraph([length])`
 
 
 *Sample result:*
@@ -52,9 +50,9 @@ Returns a random word.
 
 - `length`: number of sentences in the paragraph
 
------
 
-#### `Fake.user([params])`
+
+### `Fake.user([params])`
 
 *Sample result:*
 
@@ -81,11 +79,11 @@ Example:
             fields: ['name', 'username', 'emails.address', 'profile.name'],
         });
 
-#### `Fake.color()`
+### `Fake.color()`
 
 Returns a random named html color.
 
-#### `Fake.fromArray(customArray)`
+### `Fake.fromArray(customArray)`
 
 Selects a random element from provided array.
 
