@@ -204,7 +204,8 @@ Fake.user = function(params) {
   var result = {};
 
   for(var i in fields) {
-    attachUserField[fields[i]](user, result);
+    if(attachUserField[fields[i]])
+      attachUserField[fields[i]](user, result);
   }
 
   return result;
