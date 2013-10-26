@@ -167,7 +167,7 @@ var attachUserField = {
     ];
   },
 
-  'profile.name': function(u, 0) {
+  'profile.name': function(u, o) {
     o.profile = {
       name: u.name + ' ' + u.surname,
     };
