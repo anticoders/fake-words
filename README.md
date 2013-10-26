@@ -15,10 +15,11 @@ If you need more functionality, like fake web address or geographical location, 
 
 
 
-### API
+## API
 
+-----
 
-#### `Fake.word()`
+### `Fake.word()`
 
 Returns a random word.
 
@@ -26,7 +27,9 @@ Returns a random word.
 
 > Ingbelytion
 
-#### `Fake.sentence([length])`
+-----
+
+### `Fake.sentence([length])`
 
 *Sample result:*
 
@@ -36,7 +39,9 @@ Returns a random word.
 
 - `length`: number of words in the sentence
 
-#### `Fake.paragraph([length])`
+-----
+
+### `Fake.paragraph([length])`
 
 
 *Sample result:*
@@ -46,6 +51,8 @@ Returns a random word.
 *Optional params:*
 
 - `length`: number of sentences in the paragraph
+
+-----
 
 #### `Fake.user([params])`
 
