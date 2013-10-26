@@ -192,7 +192,7 @@ Fake.user = function(params) {
   if(params && params.fields) {
     fields = params.fields;
   } else {
-    fields = defaultUseFields;
+    fields = defaultUserFields;
   }
 
   var user = {
