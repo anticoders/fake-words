@@ -18,6 +18,35 @@ If you need more functionality, like fake web address or geographical location, 
 ### API
 
 
+#### `Fake.word()`
+
+Returns a random word.
+
+Sample result:
+
+    Ingbelytion
+
+#### `Fake.sentence([length])`
+
+Sample result:
+
+> Perexnation tily ly someveraticmer sontionamagment inesersinar.
+
+Optional params:
+
+- `length`: number of words in the sentence
+
+#### `Fake.paragraph([length])`
+
+
+Sample result:
+
+> Agepro aldeadunar cones mere exintyecar ofsub refi icerse a muter. Terasedersmag citeden tertionscomiest com ed termenttain lotione uper terpre. Bleday fiu so manen ri. Extionoter ing dity artal erexi edi. De alre ieran altic dianati com. Bani naetordecom reerly comture u reti. Oyoraing con laenter perer com titer. Lyrec tlelec mened tionfulto condide enper miscom terty tionco enterthe ertle. Etuex ingtiesrily troi inter rilow exdisuget ingre lycon tanuperpro ialardisto exes. Inuausry allyaca disna ence aget. Af atias oalthe ac nessence dyob tiveraedi enmu conni. Addytionli bleestydi mocom com naoes. Ryture deu inter mansub.
+
+Optional params:
+
+- `length`: number of sentences in the paragraph
+
 #### `Fake.user([params])`
 
 Sample result:
@@ -32,32 +61,18 @@ Sample result:
 Optional params:
  
 - `fields`: Decide what fields will be included in the result object. Possible values:
-`name, surname, fullname, username, email, emails.address, profile.name`. Example:
+    - name
+    - surname
+    - fullname
+    - username
+    - email
+    - emails.address,
+    - profile.name
+Example:
 
         Fake.user({
             fields: ['name', 'username', 'emails.address', 'profile.name'],
         });
-
-#### `Fake.sentence([length])`
-
-Sample result:
-
-> Perexnation tily ly someveraticmer sontionamagment inesersinar.
-
-Optional params:
-
-- `length`: number of words in the sentence
-
-#### `Fake.paragraph()`
-
-
-Sample result:
-
-> Agepro aldeadunar cones mere exintyecar ofsub refi icerse a muter. Terasedersmag citeden tertionscomiest com ed termenttain lotione uper terpre. Bleday fiu so manen ri. Extionoter ing dity artal erexi edi. De alre ieran altic dianati com. Bani naetordecom reerly comture u reti. Oyoraing con laenter perer com titer. Lyrec tlelec mened tionfulto condide enper miscom terty tionco enterthe ertle. Etuex ingtiesrily troi inter rilow exdisuget ingre lycon tanuperpro ialardisto exes. Inuausry allyaca disna ence aget. Af atias oalthe ac nessence dyob tiveraedi enmu conni. Addytionli bleestydi mocom com naoes. Ryture deu inter mansub.
-
-Optional params:
-
-- `length`: number of sentences in the paragraph
 
 #### `Fake.color()`
 
