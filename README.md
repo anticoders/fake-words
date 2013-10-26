@@ -1,5 +1,5 @@
 
-## Fake text and data generator for Meteor.js
+# Fake text and data generator for Meteor.js
 
 From an article about *Lorem ipsum*:
 
@@ -15,31 +15,113 @@ If you need more functionality, like fake web address or geographical location, 
 
 
 
-### API
+# API
 
 
-#### `Fake.user()`
+&nbsp;
 
-Sample result:
+&nbsp;
+
+### `Fake.word()`
+
+Returns a random word.
+
+*Sample result:*
+
+> Ingbelytion
+
+
+&nbsp;
+
+&nbsp;
+
+### `Fake.sentence([length])`
+
+*Sample result:*
+
+> Perexnation tily ly someveraticmer sontionamagment inesersinar.
+
+*Optional params:*
+
+- `length`: number of words in the sentence
+
+
+&nbsp;
+
+&nbsp;
+
+### `Fake.paragraph([length])`
+
+
+*Sample result:*
+
+> Agepro aldeadunar cones mere exintyecar ofsub refi icerse a muter. Terasedersmag citeden tertionscomiest com ed termenttain lotione uper terpre. Bleday fiu so manen ri. Extionoter ing dity artal erexi edi. De alre ieran altic dianati com. Bani naetordecom reerly comture u reti. Oyoraing con laenter perer com titer. Lyrec tlelec mened tionfulto condide enper miscom terty tionco enterthe ertle. Etuex ingtiesrily troi inter rilow exdisuget ingre lycon tanuperpro ialardisto exes. Inuausry allyaca disna ence aget. Af atias oalthe ac nessence dyob tiveraedi enmu conni. Addytionli bleestydi mocom com naoes. Ryture deu inter mansub.
+
+*Optional params:*
+
+- `length`: number of sentences in the paragraph
+
+
+
+&nbsp;
+
+&nbsp;
+
+### `Fake.user([params])`
+
+*Sample result:*
 
     {
       "name": "Kate",
       "surname": "Belyto",
+      "fullname": "Kate Belyto",
       "email": "kate@proespa.com",
     }
 
+*Optional params:*
+ 
+- `fields`: Decide what fields will be included in the result object. Possible values:
+    - name
+    - surname
+    - fullname
+    - username
+    - email
+    - emails.address,
+    - profile.name
 
-#### `Fake.sentence()`
+*Example:*
 
-Sample result:
-
-> Perexnation tily ly someveraticmer sontionamagment inesersinar.
-
-#### `Fake.paragraph()`
+        Fake.user({
+            fields: ['name', 'username', 'emails.address', 'profile.name'],
+        });
 
 
-Sample result:
+&nbsp;
 
-> Agepro aldeadunar cones mere exintyecar ofsub refi icerse a muter. Terasedersmag citeden tertionscomiest com ed termenttain lotione uper terpre. Bleday fiu so manen ri. Extionoter ing dity artal erexi edi. De alre ieran altic dianati com. Bani naetordecom reerly comture u reti. Oyoraing con laenter perer com titer. Lyrec tlelec mened tionfulto condide enper miscom terty tionco enterthe ertle. Etuex ingtiesrily troi inter rilow exdisuget ingre lycon tanuperpro ialardisto exes. Inuausry allyaca disna ence aget. Af atias oalthe ac nessence dyob tiveraedi enmu conni. Addytionli bleestydi mocom com naoes. Ryture deu inter mansub.
+&nbsp;
+
+### `Fake.color()`
+
+Returns a random named html color.
+
+*Sample result:*
+
+> navajowhite
+
+
+&nbsp;
+
+&nbsp;
+
+### `Fake.fromArray(customArray)`
+
+Selects a random element from provided array.
+
+*Example:*
+
+    fake.fromArray(['banana', 'apple', 'strawberry', 'raspberry', 'pear']);
+    // 'pear'
+
+
 
 

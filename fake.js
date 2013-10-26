@@ -1,4 +1,7 @@
 
+
+
+
 /* ---------- ---------- ---------- ---------- ---------- ---------- */
 /* Source arrays */
 /* ---------- ---------- ---------- ---------- ---------- ---------- */
@@ -42,6 +45,20 @@ var names = [
   'Oliver','Owen','Raphael','Richard','Robert',
   'Ryan','Samuel','Thomas','Tyler','William'
 ];
+
+/* Sample colors */
+/* TODO: Split them to several palettes and allow choice of which palettes to use, ie. warm, cool, grays, greens, etc. */
+
+var colors = [
+  'antiquewhite', 'brown', 'chocolate', 'coral', 'crimson',
+  'darkgray', 'darkred', 'darkorange', 'darksalmon',
+  'firebrick', 'floralwhite', 'gainsboro', 'gold', 'goldenrod',
+  'gray', 'indianred', 'khaki', 'lightcoral', 'lightsalmon', 'lightyellow',
+  'maroon', 'mistyrose', 'navajowhite', 'mocassin', 'orange', 'orangered',
+  'peru', 'red', 'rosybrown', 'saddlebrown', 'sandybrown', 'sienna',
+  'silver', 'slategray', 'tan', 'tomato', 'yeal', 'navy', 'black',
+];
+
 
 var namesLength = names.length;
 
@@ -93,6 +110,10 @@ var syllabeCounts = [
 /* ---------- ---------- ---------- ---------- ---------- ---------- */
 
 
+var capitalize = function(str) {
+  return str.slice(0,1).toUpperCase() + str.slice(1).toLowerCase();
+};
+
 var getName = function() {
   return names[Math.floor(Math.random() * namesLength)];
 };
@@ -113,8 +134,48 @@ var getDomain = function() {
   return getWord(2) + domains[Math.floor(Math.random() * 8)];
 };
 
+var randomElement = function(array) {
+  return array[Math.floor(Math.random() * array.length)];
+};
 
 
+var attachUserField = {
+
+  name: function(u, o) {
+    o.name = u.name;
+  },
+
+  surname: function(u, o) {
+    o.surname = u.surname;
+  },
+
+  fullname: function(u, o) {
+    o.fullname = u.name + ' ' + u.surname;
+  },
+
+  email: function(u, o) {
+    o.email = (u.name + '@' + u.domain).toLowerCase();
+  },
+
+  username: function(u, o) {
+    o.username = (u.name + '@' + u.domain).toLowerCase();
+  },
+  
+  'emails.address': function(u, o) {
+    o.emails = [
+      {address: (u.name + '@' + u.domain).toLowerCase(), validated: false}
+    ];
+  },
+
+  'profile.name': function(u, 0) {
+    o.profile = {
+      name: u.name + ' ' + u.surname,
+    };
+  },
+
+};
+
+var defaultUserFields = ['name', 'surname', 'fullname', 'email'];
 
 /* ---------- ---------- ---------- ---------- ---------- ---------- */
 /* Exported methods */
@@ -124,22 +185,39 @@ var getDomain = function() {
 Fake = {};
 
 
-Fake.user = function() {
-  var name = getName();
-  var surname = getWord(3);
-  surname = surname.slice(0,1).toUpperCase() + surname.slice(1).toLowerCase();
-  var domain = getDomain();
 
-  return {
-    name: name,
-    surname: surname,
-    email: (name + '@' + domain).toLowerCase(),
+Fake.user = function(params) {
+  var fields;
+
+  if(params && params.fields) {
+    fields = params.fields;
+  } else {
+    fields = defaultUseFields;
+  }
+
+  var user = {
+    name: getName(),
+    surname: capitalize(getWord(3)),
+    domain: getDomain(),
   };
+
+  var result = {};
+
+  for(var i in fields) {
+    attachUserField[fields[i]](user, result);
+  }
+
+  return result;
 };
 
+Fake.word = function() {
+  var result = getWord();
+  result = result.slice(0,1).toUpperCase() + result.slice(1).toLowerCase();;
+  return result;
+};
 
 Fake.sentence = function(length) {
-  if(!length){
+  if(!length) {
     var length = 4 + Math.floor(Math.random() * 8);
   }
   var ending = (Math.random() < 0.95) ? '.' : (Math.random() < 0.5) ? '!' : '?';
@@ -153,8 +231,8 @@ Fake.sentence = function(length) {
 
 
 Fake.paragraph = function(length) {
-  if(!length){
-    var length = 6 + Math.floor(Math.random() * 8);
+  if(!length) {
+    length = 6 + Math.floor(Math.random() * 8);
   }
   var result = Fake.sentence();
   for(var i = 1; i < length; ++i) {
@@ -162,3 +240,19 @@ Fake.paragraph = function(length) {
   }
   return result;
 };
+
+
+
+Fake.fromArray = function(array) {  
+  return randomElement(array);
+};
+
+Fake.color = function() {
+  return randomElement(colors);
+};
+
+
+
+
+
+
