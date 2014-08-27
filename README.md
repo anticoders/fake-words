@@ -13,6 +13,9 @@ Additional utility function allow you to create a fake user object.
 
 If you need more functionality, like fake web address or geographical location, please extend the package and send me a pull request.
 
+# Usage
+
+    meteor add anticoders:fake
 
 
 # API
