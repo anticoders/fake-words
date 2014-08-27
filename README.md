@@ -1,3 +1,9 @@
+Notes for updating to Meteor 0.9.0
+----------------------------------
+
+This package is now called `anti:fake`.
+
+
 
 # Fake text and data generator for Meteor.js
 
@@ -15,7 +21,7 @@ If you need more functionality, like fake web address or geographical location, 
 
 # Usage
 
-    meteor add anticoders:fake
+    meteor add anti:fake
 
 
 # API
