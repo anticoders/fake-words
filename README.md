@@ -46,6 +46,8 @@ Returns a random word.
 
 ### `Fake.sentence([length])`
 
+    Fake.sentence(randInt(2, 35))
+
 *Sample result:*
 
 > Perexnation tily ly someveraticmer sontionamagment inesersinar.
