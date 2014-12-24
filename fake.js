@@ -184,6 +184,49 @@ var defaultUserFields = ['name', 'surname', 'fullname', 'email'];
 
 Fake = {};
 
+Fake.integer = function(a,b){
+  /* ---------- ---------- ---------- ---------- ---------- ---------- */
+  /* Usage:
+  /* Fake.integer()         // 0 ~ 1000
+  /* Fake.integer(max)      // 0 ~ max
+  /* Fake.integer(min,max)  // min ~ max
+  /* ---------- ---------- ---------- ---------- ---------- ---------- */
+  var max = 0;
+  var min = 0;
+  if(a && b){
+    max=b;
+    min=a;
+  }else if (a){
+    max=a;
+    min=0;
+  }else{
+    max=1000;
+    min=0;
+  }
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+Fake.float = function(a,b){
+  /* ---------- ---------- ---------- ---------- ---------- ---------- */
+  /* Usage:
+  /* Fake.float()         // 0 ~ 1000
+  /* Fake.float(max)      // 0 ~ max
+  /* Fake.float(min,max)  // min ~ max
+  /* ---------- ---------- ---------- ---------- ---------- ---------- */
+  var max = 0;
+  var min = 0;
+  if(a && b){
+    max=b;
+    min=a;
+  }else if (a){
+    max=a;
+    min=0;
+  }else{
+    max=1000;
+    min=0;
+  }
+  return Math.random() * (max - min) + min;
+}
 
 
 Fake.user = function(params) {
