@@ -133,4 +133,11 @@ Selects a random element from provided array.
 
 
 
+### `Fake.username()`
 
+Returns a random username
+
+*Example:*
+
+    fake.username();
+    // 'kate@proespa'
