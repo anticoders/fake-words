@@ -132,5 +132,13 @@ Selects a random element from provided array.
     // 'pear'
 
 
+### `Fake.emailAddress()`
+
+Returns a random email address
+
+*Example:*
+
+    fake.emailAddress();
+    // 'kate@proespa.com'
 
 
