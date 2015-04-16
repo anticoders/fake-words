@@ -131,6 +131,34 @@ Selects a random element from provided array.
     fake.fromArray(['banana', 'apple', 'strawberry', 'raspberry', 'pear']);
     // 'pear'
 
+&nbsp;
 
+&nbsp;
+
+### `Fake.integer([[min,]max])`
+
+Generate a random integer. If no argument passed, the default output is a random integer between 0 to 1000.
+
+*Example:*
+
+    Fake.integer();
+    // 476
+    Fake.integer(100);
+    // 23
+    Fake.integer(5,10);
+    // 6
+
+### `Fake.float([[min,]max])`
+
+Generate a random float. If no argument passed, the default output is a random float between 0 to 1000.
+
+*Example:*
+
+    Fake.float();
+    // 682.4292875826359
+    Fake.float(100);
+    // 18.00180042628199
+    Fake.float(5,10);
+    // 8.542717032833025
 
 
