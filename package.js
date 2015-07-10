@@ -1,8 +1,8 @@
 Package.describe({
-  name:     "anti:fake",
+  name:     "sscaff1:fake",
   version:  "0.4.1",
   summary:  "Random text and data generator",
-  git:      "https://github.com/anticoders/meteor-fake.git",
+  git:      "https://github.com/sscaff1/meteor-fake.git",
 });
 
 
