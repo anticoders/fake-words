@@ -128,7 +128,7 @@ Selects a random element from provided array.
 
 *Example:*
 
-    fake.fromArray(['banana', 'apple', 'strawberry', 'raspberry', 'pear']);
+    Fake.fromArray(['banana', 'apple', 'strawberry', 'raspberry', 'pear']);
     // 'pear'
 
 
