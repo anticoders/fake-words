@@ -132,5 +132,28 @@ Selects a random element from provided array.
     // 'pear'
 
 
+&nbsp;
 
+&nbsp;
 
+### `Fake.simpleSchemaDoc(schema)`
+
+Returns a random object created from [SimpleSchema](http://github.com/aldeed/meteor-simple-schema) definition.
+
+*Example:*
+
+    BookSchema = new SimpleSchema({
+        title: {
+            type: String
+        },
+        pages: {
+            type: Number
+        },
+        available: {
+            type: Boolean
+        }
+    });
+    var fakeDoc = Fake.simpleSchemaDoc(BookSchema);
+    // { "title": "Tendy Orbiter", "pages": 112, "available": true }
+
+Only `Number`, `String` and `Boolean` type fields are supported at the moment.
