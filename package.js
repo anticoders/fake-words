@@ -7,6 +7,7 @@ Package.describe({
 
 
 Package.on_use(function (api, where) {
+  api.use(["erasaur:meteor-lodash@4.0.0"]);
   api.export('Fake', ['client', 'server']);
   api.add_files('fake.js', ['client', 'server']);
 });
