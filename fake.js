@@ -254,6 +254,37 @@ Fake.color = function() {
 
 
 
+var _getRandomNumber = function (min, max, isInteger) {
+  var r = Math.random() * (max - min);
+  if (isInteger)
+    r = Math.round(r);
+  return r;
+};
 
+Fake.simpleSchemaDoc = function(schema) {
+  var fakeObj = {};
+  _.each(schema._schemaKeys, function (key) {
+    var schemaKey = schema._schema[key],
+        type = schema._schema[key].type.name,
+        value = null;
+    switch(type) {
+      case 'String':
+        value = Fake.word();
+        break;
+      case 'Number':
+        var max = _.get(schemaKey, 'max', Number.MAX_SAFE_INTEGER),
+            min = _.get(schemaKey, 'min', Number.MIN_SAFE_INTEGER);
+            decimal = _.get(schemaKey, 'decimal', false)
+        value = _getRandomNumber(min, max, !decimal);
+        break;
+      case 'Boolean':
+        value = _getRandomNumber(0, 1) > 0.5;
+        break;
+    }
+    if(_.isString(value) || _.isNumber(value) || _.isBoolean(value)) {
+      lodash.set(fakeObj, key, value);
+    }
+  });
 
-
+  return fakeObj;
+};

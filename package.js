@@ -1,6 +1,6 @@
 Package.describe({
   name:     "anti:fake",
-  version:  "0.4.1",
+  version:  "0.4.2.1",
   summary:  "Random text and data generator",
   git:      "https://github.com/anticoders/meteor-fake.git",
 });
