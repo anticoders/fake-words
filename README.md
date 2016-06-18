@@ -1,7 +1,7 @@
-Notes for updating to Meteor 0.9.0
+Notes for updating to Meteor 1.3.3
 ----------------------------------
 
-This package is now called `anti:fake`.
+This package is now called `muqube:fake`.
 
 
 
@@ -21,7 +21,7 @@ If you need more functionality, like fake web address or geographical location, 
 
 # Usage
 
-    meteor add anti:fake
+    meteor add muqube:fake
 
 
 # API
@@ -140,20 +140,43 @@ Selects a random element from provided array.
 
 Returns a random object created from [SimpleSchema](http://github.com/aldeed/meteor-simple-schema) definition.
 
+Only `Number`, `String` and `Boolean` type fields are supported at the moment. The `max` and `min` options are respected for `Number` and `String` type.
+
 *Example:*
 
     BookSchema = new SimpleSchema({
         title: {
             type: String
         },
+        summary: {
+            type: String
+            max: 1000,
+            min: 100
+        }
         pages: {
             type: Number
         },
         available: {
             type: Boolean
+        },
+        price: {
+            type: Number,
+            max: 100,
+            min: 25
         }
     });
     var fakeDoc = Fake.simpleSchemaDoc(BookSchema);
-    // { "title": "Tendy Orbiter", "pages": 112, "available": true }
 
-Only `Number`, `String` and `Boolean` type fields are supported at the moment.
+output:
+
+    { 
+        "title": "Orlycon ingcal tion comingedthe modecomal detion reed n.",
+        "summary": "Ybecom perdythe cona ananed re de esni modiloalse.Ygen teres ble nesso ic.E es conesmo acor tyex.", // max and min limit respected
+        "pages": 5721755277461235, // very big number is likely to appear since max and min limits were not specified for this field
+        "available": true,
+        "price": 93 // max and min limit respected
+    }
+
+## History
+
+This package is forked from `anti:fake`. I forked it and added some modifications to support simple schema docs generation.
