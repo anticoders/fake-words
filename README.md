@@ -1,7 +1,7 @@
-Notes for updating to Meteor 0.9.0
+Notes for updating to Meteor 1.3.3
 ----------------------------------
 
-This package is now called `anti:fake`.
+This package is now called `muqube:fake`.
 
 
 
@@ -157,3 +157,7 @@ Returns a random object created from [SimpleSchema](http://github.com/aldeed/met
     // { "title": "Tendy Orbiter", "pages": 112, "available": true }
 
 Only `Number`, `String` and `Boolean` type fields are supported at the moment.
+
+## History
+
+This package is forked from `anti:fake`. I forked it and added some modifications to support simple schema docs generation.
