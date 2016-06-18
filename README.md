@@ -21,7 +21,7 @@ If you need more functionality, like fake web address or geographical location, 
 
 # Usage
 
-    meteor add anti:fake
+    meteor add muqube:fake
 
 
 # API
