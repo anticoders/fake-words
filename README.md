@@ -172,7 +172,7 @@ output:
     { 
         "title": "Orlycon ingcal tion comingedthe modecomal detion reed n.",
         "summary": "Ybecom perdythe cona ananed re de esni modiloalse.Ygen teres ble nesso ic.E es conesmo acor tyex.", // max and min limit respected
-        "pages": 5721755277461235, // very big number is likely to appear since max and min limits were specified for this field
+        "pages": 5721755277461235, // very big number is likely to appear since max and min limits were not specified for this field
         "available": true,
         "price": 93 // max and min limit respected
     }
