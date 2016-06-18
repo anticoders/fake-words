@@ -151,12 +151,19 @@ Returns a random object created from [SimpleSchema](http://github.com/aldeed/met
         },
         available: {
             type: Boolean
+        },
+        price: {
+            type: Number,
+            max: 100,
+            min: 25
         }
     });
     var fakeDoc = Fake.simpleSchemaDoc(BookSchema);
-    // { "title": "Tendy Orbiter", "pages": 112, "available": true }
+    // { "title": "Tendy Orbiter", "pages": 112, "available": true, "price": 42 }
 
 Only `Number`, `String` and `Boolean` type fields are supported at the moment.
+
+The `max` and `min` options are respected for `Number` type.
 
 ## History
 
