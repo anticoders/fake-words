@@ -1,8 +1,8 @@
 Package.describe({
-  name:     "anti:fake",
-  version:  "0.4.1_1",
-  summary:  "Random text and data generator",
-  git:      "https://github.com/anticoders/meteor-fake.git",
+  name:     "muqube:fake",
+  version:  "0.4.3",
+  summary:  "Random text, data and simple schema docs generator",
+  git:      "https://github.com/muqube/meteor-fake",
 });
 
 
