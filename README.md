@@ -140,7 +140,18 @@ Selects a random element from provided array.
 
 Returns a random object created from [SimpleSchema](http://github.com/aldeed/meteor-simple-schema) definition.
 
-Only `Number`, `String` and `Boolean` type fields are supported at the moment. The `max` and `min` options are respected for `Number` and `String` type.
+Only `Number`, `String` and `Boolean` type fields are supported at the moment. 
+
+These options are supported for `Number` type:
+
+* `decimal`
+* `max` 
+* `min`
+
+These options are supported for `String` type:
+
+* `max` 
+* `min`
 
 *Example:*
 
