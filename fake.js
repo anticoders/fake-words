@@ -278,13 +278,18 @@ Fake.simpleSchemaDoc = function(schema) {
         type = schema._schema[key].type.name,
         max = _.get(schemaKey, 'max', Number.MAX_SAFE_INTEGER),
         min = _.get(schemaKey, 'min', Number.MIN_SAFE_INTEGER),
+        allowedValues = _.get(schemaKey, 'allowedValues', undefined),
         value = null;
     min = _.clamp(min, Number.MIN_SAFE_INTEGER, max);
     switch(type) {
       case 'String':
-        max = _.clamp(max, 0, 100);
-        min = _.clamp(min, 0, max);
-        value = _getRandomString(min, max);
+        if (allowedValues) {
+          value = Fake.fromArray(allowedValues);
+        } else {
+          max = _.clamp(max, 0, 100);
+          min = _.clamp(min, 0, max);
+          value = _getRandomString(min, max);
+        }
         break;
       case 'Number':
         var decimal = _.get(schemaKey, 'decimal', false)
