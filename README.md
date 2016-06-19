@@ -140,7 +140,19 @@ Selects a random element from provided array.
 
 Returns a random object created from [SimpleSchema](http://github.com/aldeed/meteor-simple-schema) definition.
 
-Only `Number`, `String` and `Boolean` type fields are supported at the moment. The `max` and `min` options are respected for `Number` and `String` type.
+Only `Number`, `String` and `Boolean` type fields are supported at the moment. 
+
+These options are supported for `Number` type:
+
+* `decimal`
+* `max` 
+* `min`
+
+These options are supported for `String` type:
+
+* `max` 
+* `min`
+* `allowedValues`
 
 *Example:*
 
@@ -163,6 +175,15 @@ Only `Number`, `String` and `Boolean` type fields are supported at the moment. T
             type: Number,
             max: 100,
             min: 25
+        },
+        promotion: {
+            type: String,
+            allowedValues: [
+                "featured",
+                "promoted",
+                "editor's pick",
+                "popular"
+            ]
         }
     });
     var fakeDoc = Fake.simpleSchemaDoc(BookSchema);
@@ -174,7 +195,8 @@ output:
         "summary": "Ybecom perdythe cona ananed re de esni modiloalse.Ygen teres ble nesso ic.E es conesmo acor tyex.", // max and min limit respected
         "pages": 5721755277461235, // very big number is likely to appear since max and min limits were not specified for this field
         "available": true,
-        "price": 93 // max and min limit respected
+        "price": 93 // max and min limit respected,
+        "promotion": "popular" // a value from the allowedValues array
     }
 
 ## History
