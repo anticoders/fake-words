@@ -1,6 +1,6 @@
 Package.describe({
   name:     "muqube:fake",
-  version:  "0.4.3_3",
+  version:  "0.4.3_6",
   summary:  "Random text, data and simple schema docs generator",
   git:      "https://github.com/muqube/meteor-fake",
   documentation: "README.md"
