@@ -283,7 +283,7 @@ Fake.simpleSchemaDoc = function(schema) {
         min = _.get(schemaKey, 'min', MIN_INT),
         allowedValues = _.get(schemaKey, 'allowedValues', undefined),
         value = null;
-    min = _.clamp(min, Number.MIN_SAFE_INTEGER, max);
+    min = _.clamp(min, MIN_INT, max);
     switch(type) {
       case 'String':
         if (allowedValues) {
