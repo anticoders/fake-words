@@ -271,13 +271,16 @@ var _getRandomNumber = function (min, max, isInteger) {
   return r;
 };
 
+var MAX_INT = 9007199254740991;
+var MIN_INT = -9007199254740991;
+
 Fake.simpleSchemaDoc = function(schema) {
   var fakeObj = {};
   _.each(schema._schemaKeys, function (key) {
     var schemaKey = schema._schema[key],
         type = schema._schema[key].type.name,
-        max = _.get(schemaKey, 'max', Number.MAX_SAFE_INTEGER),
-        min = _.get(schemaKey, 'min', Number.MIN_SAFE_INTEGER),
+        max = _.get(schemaKey, 'max', Number.MAX_INT),
+        min = _.get(schemaKey, 'min', Number.MIN_INT),
         allowedValues = _.get(schemaKey, 'allowedValues', undefined),
         value = null;
     min = _.clamp(min, Number.MIN_SAFE_INTEGER, max);
