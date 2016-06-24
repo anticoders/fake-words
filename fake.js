@@ -271,19 +271,18 @@ var _getRandomNumber = function (min, max, isInteger) {
   return r;
 };
 
-var MAX_INT = 9007199254740991;
-var MIN_INT = -9007199254740991;
-
-Fake.simpleSchemaDoc = function(schema) {
+Fake.simpleSchemaDoc = function(schema, overrideDoc) {
+  var _MAX_INT = 9007199254740991;
+  var _MIN_INT = -9007199254740991;
   var fakeObj = {};
   _.each(schema._schemaKeys, function (key) {
     var schemaKey = schema._schema[key],
         type = schema._schema[key].type.name,
-        max = _.get(schemaKey, 'max', MAX_INT),
-        min = _.get(schemaKey, 'min', MIN_INT),
+        max = _.get(schemaKey, 'max', _MAX_INT),
+        min = _.get(schemaKey, 'min', _MIN_INT),
         allowedValues = _.get(schemaKey, 'allowedValues', undefined),
         value = null;
-    min = _.clamp(min, MIN_INT, max);
+    min = _.clamp(min, _MIN_INT, max);
     switch(type) {
       case 'String':
         if (allowedValues) {
@@ -306,6 +305,12 @@ Fake.simpleSchemaDoc = function(schema) {
       lodash.set(fakeObj, key, value);
     }
   });
+
+  if (!_.isEmpty(overrideDoc)) {
+    _.each(_.keys(overrideDoc), function (key) {
+      _.set(fakeObj, key, overrideDoc[key]);
+    });
+  }
 
   return fakeObj;
 };

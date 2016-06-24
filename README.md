@@ -136,9 +136,9 @@ Selects a random element from provided array.
 
 &nbsp;
 
-### `Fake.simpleSchemaDoc(schema)`
+### `Fake.simpleSchemaDoc(schema, [preset])`
 
-Returns a random object created from [SimpleSchema](http://github.com/aldeed/meteor-simple-schema) definition.
+Returns a random object created from [SimpleSchema](http://github.com/aldeed/meteor-simple-schema) definition. If a preset is provided, then fields are pre-populated with values in the preset.
 
 Only `Number`, `String` and `Boolean` type fields are supported at the moment. 
 
@@ -156,7 +156,9 @@ These options are supported for `String` type:
 
 *Example:*
 
-    BookSchema = new SimpleSchema({
+Generating a simple schema documents
+
+    var BookSchema = new SimpleSchema({
         title: {
             type: String
         },
@@ -197,6 +199,37 @@ output:
         "available": true,
         "price": 93 // max and min limit respected,
         "promotion": "popular" // a value from the allowedValues array
+    }
+
+Generating a document with preset
+
+    var WeatherSchema = new SimpleSchema({
+        temperature: {
+            type: Number,
+            min: -100,
+            max: 100
+        },
+        location: {
+            type: String
+        },
+        weatherType: {
+            type: String,
+            allowedValues: [
+                'sunny',
+                'rainy',
+                'cloudy',
+                'chilly',
+                'stormy'
+            ]
+        }
+    });
+    var fakeWeather = Fake.simpleSchemaDoc(WeatherSchema, {temperature: 11});
+
+output:
+    {
+        "temperature": 11,
+        "location": "evelo",
+        "weatherType": "stormy"
     }
 
 ## History
