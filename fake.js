@@ -271,7 +271,7 @@ var _getRandomNumber = function (min, max, isInteger) {
   return r;
 };
 
-Fake.simpleSchemaDoc = function(schema) {
+Fake.simpleSchemaDoc = function(schema, overrideDoc) {
   var _MAX_INT = 9007199254740991;
   var _MIN_INT = -9007199254740991;
   var fakeObj = {};
@@ -305,6 +305,12 @@ Fake.simpleSchemaDoc = function(schema) {
       lodash.set(fakeObj, key, value);
     }
   });
+
+  if (!_.isEmpty(overrideDoc)) {
+    _.each(_.keys(overrideDoc), function (key) {
+      _.set(fakeObj, key, overrideDoc[key]);
+    });
+  }
 
   return fakeObj;
 };
