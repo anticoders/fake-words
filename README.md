@@ -226,6 +226,7 @@ Generating a document with preset
     var fakeWeather = Fake.simpleSchemaDoc(WeatherSchema, {temperature: 11});
 
 output:
+
     {
         "temperature": 11,
         "location": "evelo",
