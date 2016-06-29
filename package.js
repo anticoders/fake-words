@@ -6,7 +6,6 @@ Package.describe({
   documentation: "README.md"
 });
 
-
 Package.on_use(function (api, where) {
   api.use(["erasaur:meteor-lodash@3.10.1_1"]);
   api.export('Fake', ['client', 'server']);
@@ -17,4 +16,21 @@ Package.on_use(function (api, where) {
         'fake.js'
       ],
       ['client', 'server']);
+});
+
+Package.onTest(function(api) {
+    api.use([
+        'tinytest',
+        'ecmascript',
+        'erasaur:meteor-lodash@3.10.1_1',
+        'aldeed:simple-schema',
+        'muqube:fake'
+    ]);
+
+    api.imply(['erasaur:meteor-lodash@3.10.1_1']);
+
+    api.addFiles([
+        'tests/fromArray.test.js',
+        'tests/simpleSchemaDoc.test.js'
+    ], ['client', 'server']);
 });
