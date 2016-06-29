@@ -30,6 +30,7 @@ Package.onTest(function(api) {
     api.imply(['erasaur:meteor-lodash@3.10.1_1']);
 
     api.addFiles([
-        'tests/fromArray.test.js'
+        'tests/fromArray.test.js',
+        'tests/simpleSchemaDoc.test.js'
     ], ['client', 'server']);
 });
