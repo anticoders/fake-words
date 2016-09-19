@@ -76,7 +76,7 @@ Fake.color = function() {
 const _MAX_INT = 9007199254740991;
 const _MIN_INT = -9007199254740991;
 
-const defaultArrayLength = 10;
+const defaultArrayLength = 2;
 
 const generateValue = function(schemaKey) {
   var type = schemaKey.type.name,
@@ -107,48 +107,48 @@ const generateValue = function(schemaKey) {
     case 'Date':
       value = new Date();
       break;
-    case 'Array':
-      value = [];
-      for (var i = 0; i < defaultArrayLength; i++) {
-        value.push({});
-      }
-      break;
-    case 'Object':
-      value = {};
-      break;
   }
   return value;
 };
 
+/** Recursive create fields for inner objects and arrays **/
+const generateInnerObjectField = (schemaKey, deepness, obj) => {
+  if (!deepness || !_.isArray(deepness) || deepness.length === 0) return;
+  let d = deepness[0];
+
+  if (deepness.length === 1) {
+    obj[d] = generateValue(schemaKey);
+  }
+  else if (deepness[1] === '$') {
+    if (!obj[d]) obj[d] = [];
+    let arr = obj[d];
+    let create = (arr.length === 0);
+    let len = create ? defaultArrayLength : arr.length;
+
+    for (var j = 0; j < len; j++) {
+      if (create) arr.push({});
+      generateInnerObjectField(schemaKey, _.drop(deepness, 2), arr[j]);
+    }
+  }
+  else {
+    if (!obj[d]) obj[d] = {};
+    generateInnerObjectField(schemaKey, _.drop(deepness, 1), obj[d]);
+  }
+};
+
+/** Generate one instance accordingly to schema **/
 Fake.simpleSchemaDoc = function(schema, overrideDoc={}) {
   var fakeObj = {};
   _.each(schema._schemaKeys, function (key) {
-
+    const schemaKey = schema._schema[key];
     let deepness = key.split('.'); // calculate if that field is description of inner object
 
     if (deepness.length > 1) {
-      const
-          k = deepness[0],
-          value = fakeObj[k],
-          f = deepness[2],
-          type = schema._schema[k].type.name;
-
-      // if field of internal object isn`t defined then it`s an inner object without scheme (type: Object or [Object])
-      if (f === undefined) return;
-      switch (type) {
-        case 'Array': // array of objects (type: [Object])
-          for (var i = 0; i < value.length; i++)
-            value[i][f] = generateValue(schema._schema[key]);
-          break;
-        case 'Object': // inner object (type: Object)
-          value[f] = generateValue(schema._schema[key]);
-          break;
-      }
+      generateInnerObjectField(schemaKey, deepness, fakeObj);
     } else { // if it is just field in schema, not object or [Object]
-      fakeObj[key] = overrideDoc[key] || generateValue(schema._schema[key]);
+      fakeObj[key] = overrideDoc[key] || generateValue(schemaKey);
     }
   });
-  console.log(fakeObj);
   return fakeObj;
 };
 
