@@ -9,6 +9,7 @@ Package.describe({
 
 Package.on_use(function (api, where) {
   api.use(["erasaur:meteor-lodash@3.10.1_1"]);
+  api.use(["ecmascript"]);
   api.export('Fake', ['client', 'server']);
   api.add_files(
       [

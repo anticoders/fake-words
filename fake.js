@@ -73,46 +73,90 @@ Fake.color = function() {
   return randomElement(colors);
 };
 
-Fake.simpleSchemaDoc = function(schema, overrideDoc) {
-  var _MAX_INT = 9007199254740991;
-  var _MIN_INT = -9007199254740991;
+const _MAX_INT = 9007199254740991;
+const _MIN_INT = -9007199254740991;
+
+const defaultArrayLength = 10;
+
+const generateValue = function(schemaKey) {
+  var type = schemaKey.type.name,
+      max = _.get(schemaKey, 'max', _MAX_INT),
+      min = _.get(schemaKey, 'min', _MIN_INT),
+      allowedValues = _.get(schemaKey, 'allowedValues', undefined),
+      value = null;
+
+  min = _clamp(min, _MIN_INT, max);
+
+  switch (type) {
+    case 'String':
+      if (allowedValues) {
+        value = Fake.fromArray(allowedValues);
+      } else {
+        max = _clamp(max, 0, 100);
+        min = _clamp(min, 0, max);
+        value = _getRandomString(min, max);
+      }
+      break;
+    case 'Number':
+      var decimal = _.get(schemaKey, 'decimal', false);
+      value = _getRandomNumber(min, max, !decimal);
+      break;
+    case 'Boolean':
+      value = _getRandomNumber(0, 1) > 0.5;
+      break;
+    case 'Date':
+      value = new Date();
+      break;
+    case 'Array':
+      value = [];
+      for (var i = 0; i < defaultArrayLength; i++) {
+        value.push({});
+      }
+      break;
+    case 'Object':
+      value = {};
+      break;
+  }
+  return value;
+};
+
+Fake.simpleSchemaDoc = function(schema, overrideDoc={}) {
   var fakeObj = {};
   _.each(schema._schemaKeys, function (key) {
-    var schemaKey = schema._schema[key],
-        type = schema._schema[key].type.name,
-        max = _.get(schemaKey, 'max', _MAX_INT),
-        min = _.get(schemaKey, 'min', _MIN_INT),
-        allowedValues = _.get(schemaKey, 'allowedValues', undefined),
-        value = null;
-    min = _clamp(min, _MIN_INT, max);
-    switch(type) {
-      case 'String':
-        if (allowedValues) {
-          value = Fake.fromArray(allowedValues);
-        } else {
-          max = _clamp(max, 0, 100);
-          min = _clamp(min, 0, max);
-          value = _getRandomString(min, max);
-        }
-        break;
-      case 'Number':
-        var decimal = _.get(schemaKey, 'decimal', false)
-        value = _getRandomNumber(min, max, !decimal);
-        break;
-      case 'Boolean':
-        value = _getRandomNumber(0, 1) > 0.5;
-        break;
-    }
-    if(_.isString(value) || _.isNumber(value) || _.isBoolean(value)) {
-      lodash.set(fakeObj, key, value);
+
+    let deepness = key.split('.'); // calculate if that field is description of inner object
+
+    if (deepness.length > 1) {
+      const
+          k = deepness[0],
+          value = fakeObj[k],
+          f = deepness[2],
+          type = schema._schema[k].type.name;
+
+      // if field of internal object isn`t defined then it`s an inner object without scheme (type: Object or [Object])
+      if (f === undefined) return;
+      switch (type) {
+        case 'Array': // array of objects (type: [Object])
+          for (var i = 0; i < value.length; i++)
+            value[i][f] = generateValue(schema._schema[key]);
+          break;
+        case 'Object': // inner object (type: Object)
+          value[f] = generateValue(schema._schema[key]);
+          break;
+      }
+    } else { // if it is just field in schema, not object or [Object]
+      fakeObj[key] = overrideDoc[key] || generateValue(schema._schema[key]);
     }
   });
-
-  if (!_.isEmpty(overrideDoc)) {
-    _.each(_.keys(overrideDoc), function (key) {
-      _.set(fakeObj, key, overrideDoc[key]);
-    });
-  }
-
+  console.log(fakeObj);
   return fakeObj;
+};
+
+/* Generate array if objects using simple-schema */
+Fake.simpleSchemaArray = function(schema, length = 1, initialDoc = {}) {
+  let result = [];
+  for (var i = 0; i < length; i++) {
+    result.push(Fake.simpleSchemaDoc(schema,initialDoc))
+  }
+  return result;
 };
