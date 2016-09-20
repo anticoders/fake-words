@@ -107,6 +107,9 @@ const generateValue = function(schemaKey) {
     case 'Date':
       value = new Date();
       break;
+    case 'Object':
+      value = {};
+      break;
   }
   return value;
 };
@@ -130,6 +133,9 @@ const generateInnerObjectField = (schemaKey, deepness, obj) => {
       generateInnerObjectField(schemaKey, _.drop(deepness, 2), arr[j]);
     }
   }
+  else if (d === ''){
+    if (!obj[d]) obj[d] = {};
+  }
   else {
     if (!obj[d]) obj[d] = {};
     generateInnerObjectField(schemaKey, _.drop(deepness, 1), obj[d]);
@@ -142,7 +148,6 @@ Fake.simpleSchemaDoc = function(schema, overrideDoc={}) {
   _.each(schema._schemaKeys, function (key) {
     const schemaKey = schema._schema[key];
     let deepness = key.split('.'); // calculate if that field is description of inner object
-
     if (deepness.length > 1) {
       generateInnerObjectField(schemaKey, deepness, fakeObj);
     } else { // if it is just field in schema, not object or [Object]
