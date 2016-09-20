@@ -1,11 +1,11 @@
-Notes for updating to Meteor 0.9.0
+Notes for updating to Meteor 1.3.3
 ----------------------------------
 
-This package is now called `anti:fake`.
+This package is now called `muqube:fake`.
 
 
 
-# Fake text and data generator for Meteor.js
+# Fake text and data generator for Meteor.js [![Build Status](https://travis-ci.org/muqube/meteor-fake.svg?branch=master)](https://travis-ci.org/muqube/meteor-fake)
 
 From an article about *Lorem ipsum*:
 
@@ -21,7 +21,7 @@ If you need more functionality, like fake web address or geographical location, 
 
 # Usage
 
-    meteor add anti:fake
+    meteor add muqube:fake
 
 
 # API
@@ -132,5 +132,107 @@ Selects a random element from provided array.
     // 'pear'
 
 
+&nbsp;
 
+&nbsp;
 
+### `Fake.simpleSchemaDoc(schema, [preset])`
+
+Returns a random object created from [SimpleSchema](http://github.com/aldeed/meteor-simple-schema) definition. If a preset is provided, then fields are pre-populated with values in the preset.
+
+Only `Number`, `String` and `Boolean` type fields are supported at the moment. 
+
+These options are supported for `Number` type:
+
+* `decimal`
+* `max` 
+* `min`
+
+These options are supported for `String` type:
+
+* `max` 
+* `min`
+* `allowedValues`
+
+*Example:*
+
+Generating a simple schema documents
+
+    var BookSchema = new SimpleSchema({
+        title: {
+            type: String
+        },
+        summary: {
+            type: String
+            max: 1000,
+            min: 100
+        }
+        pages: {
+            type: Number
+        },
+        available: {
+            type: Boolean
+        },
+        price: {
+            type: Number,
+            max: 100,
+            min: 25
+        },
+        promotion: {
+            type: String,
+            allowedValues: [
+                "featured",
+                "promoted",
+                "editor's pick",
+                "popular"
+            ]
+        }
+    });
+    var fakeDoc = Fake.simpleSchemaDoc(BookSchema);
+
+output:
+
+    { 
+        "title": "Orlycon ingcal tion comingedthe modecomal detion reed n.",
+        "summary": "Ybecom perdythe cona ananed re de esni modiloalse.Ygen teres ble nesso ic.E es conesmo acor tyex.", // max and min limit respected
+        "pages": 5721755277461235, // very big number is likely to appear since max and min limits were not specified for this field
+        "available": true,
+        "price": 93 // max and min limit respected,
+        "promotion": "popular" // a value from the allowedValues array
+    }
+
+Generating a document with preset
+
+    var WeatherSchema = new SimpleSchema({
+        temperature: {
+            type: Number,
+            min: -100,
+            max: 100
+        },
+        location: {
+            type: String
+        },
+        weatherType: {
+            type: String,
+            allowedValues: [
+                'sunny',
+                'rainy',
+                'cloudy',
+                'chilly',
+                'stormy'
+            ]
+        }
+    });
+    var fakeWeather = Fake.simpleSchemaDoc(WeatherSchema, {temperature: 11});
+
+output:
+
+    {
+        "temperature": 11,
+        "location": "evelo",
+        "weatherType": "stormy"
+    }
+
+## History
+
+This package is forked from `anti:fake`. I forked it and added some modifications to support simple schema docs generation.

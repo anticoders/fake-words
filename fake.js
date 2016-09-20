@@ -1,182 +1,3 @@
-
-
-
-
-/* ---------- ---------- ---------- ---------- ---------- ---------- */
-/* Source arrays */
-/* ---------- ---------- ---------- ---------- ---------- ---------- */
-
-
-/* Most common syllabes in English language */
-
-var syllabes = [
-  'the','ing','er','a','ly','ed','i','es','re','tion','in','e','con','y','ter','ex','al','de','com','o','di','en','an','ty','ry','u',
-  'ti','ri','be','per','to','pro','ac','ad','ar','ers','ment','or','tions','ble','der','ma','na','si','un','at','dis','ca','cal','man','ap',
-  'po','sion','vi','el','est','la','lar','pa','ture','for','is','mer','pe','ra','so','ta','as','col','fi','ful','get','low','ni','par','son',
-  'tle','day','ny','pen','pre','tive','car','ci','mo','an','aus','pi','se','ten','tor','ver','ber','can','dy','et','it','mu','no','ple','cu',
-  'fac','fer','gen','ic','land','light','ob','of','pos','tain','den','ings','mag','ments','set','some','sub','sur','ters','tu','af','au','cy','fa','im',
-  'li','lo','men','min','mon','op','out','rec','ro','sen','side','tal','tic','ties','ward','age','ba','but','cit','cle','co','cov','daq','dif','ence',
-  'ern','eve','hap','ies','ket','lec','main','mar','mis','my','nal','ness','ning','nu','oc','pres','sup','te','ted','tem','tin','tri','tro','up',
-];
-
-var syllabesLength = syllabes.length;
-
-/* Popular names in several English-speaking countries */
-
-var names = [
-  'Abigail','Alice','Amelia','Angelina','Ann',
-  'Ashley','Avery','Barbara','Brianna','Camila',
-  'Chloe','Dorothy','Elizabeth','Ella','Emily',
-  'Emma','Fiona','Florence','Gabrielle','Haley',
-  'Hannah','Isabella','Jasmine','Jennifer','Jessica',
-  'Juliette','Kate','Leah','Lily','Linda',
-  'Lea','Madison','Makayla','Margaret','Maria',
-  'Mariana','Mary','Megan','Mia','Olivia',
-  'Patricia','Rachel','Samantha','Sarah','Sophie',
-  'Susan','Taylor','Valeria','Victoria','Zoe',
-  'Alexander','Anthony','Benjamin','Brandon','Carter',
-  'Charles','Charlie','Christian','Christopher','Daniel',
-  'David','Deven','Dylan','Elijah','Eric',
-  'Ethan','Felix','Gabriel','George','Harry',
-  'Hudson','Hunter','Jack','Jacob','James',
-  'Jason','Jayden','Jeremiah','John','Joseph',
-  'Joshua','Justin','Kevin','Liam','Logan',
-  'Lucas','Matthew','Michael','Neil','Noah',
-  'Oliver','Owen','Raphael','Richard','Robert',
-  'Ryan','Samuel','Thomas','Tyler','William'
-];
-
-/* Sample colors */
-/* TODO: Split them to several palettes and allow choice of which palettes to use, ie. warm, cool, grays, greens, etc. */
-
-var colors = [
-  'antiquewhite', 'brown', 'chocolate', 'coral', 'crimson',
-  'darkgray', 'darkred', 'darkorange', 'darksalmon',
-  'firebrick', 'floralwhite', 'gainsboro', 'gold', 'goldenrod',
-  'gray', 'indianred', 'khaki', 'lightcoral', 'lightsalmon', 'lightyellow',
-  'maroon', 'mistyrose', 'navajowhite', 'mocassin', 'orange', 'orangered',
-  'peru', 'red', 'rosybrown', 'saddlebrown', 'sandybrown', 'sienna',
-  'silver', 'slategray', 'tan', 'tomato', 'yeal', 'navy', 'black',
-];
-
-
-var namesLength = names.length;
-
-/* Domain suffixes */
-
-var domains = [
-  '.net', '.org', '.edu', '.com',
-  '.com', '.com', '.com', '.com',
-];
-
-/* Frequency table for word lengths */
-
-var wordLengths = [
-  1, 1,
-  2, 2, 2, 2, 2, 2, 2,
-  3, 3, 3, 3,
-  4, 4,
-  5
-];
-
-/* Frequency table for random syllabes */
-
-var syllabeCounts = [
-  10,
-  15,
-  20,
-  25,
-
-  30,
-  35,
-  40,
-  45,
-
-  50,
-  75,
-  100,
-  125,
-
-  150,
-  175,
-  175,
-  175,
-];
-
-
-
-/* ---------- ---------- ---------- ---------- ---------- ---------- */
-/* Utility methods */
-/* ---------- ---------- ---------- ---------- ---------- ---------- */
-
-
-var capitalize = function(str) {
-  return str.slice(0,1).toUpperCase() + str.slice(1).toLowerCase();
-};
-
-var getName = function() {
-  return names[Math.floor(Math.random() * namesLength)];
-};
-
-var getWord = function(min, max) {
-  var length = wordLengths[Math.floor(Math.random() * 16)];
-  if(min && (length < min)) length = min;
-  if(max && (length > max)) length = max;
-  var word = '';
-  for(var i = 0; i < length; ++i) {
-    var count = syllabeCounts[Math.floor(Math.random() * 16)];
-    word += syllabes[Math.floor(Math.random() * count)];
-  }
-  return word;
-};
-
-var getDomain = function() {
-  return getWord(2) + domains[Math.floor(Math.random() * 8)];
-};
-
-var randomElement = function(array) {
-  return array[Math.floor(Math.random() * array.length)];
-};
-
-
-var attachUserField = {
-
-  name: function(u, o) {
-    o.name = u.name;
-  },
-
-  surname: function(u, o) {
-    o.surname = u.surname;
-  },
-
-  fullname: function(u, o) {
-    o.fullname = u.name + ' ' + u.surname;
-  },
-
-  email: function(u, o) {
-    o.email = (u.name + '@' + u.domain).toLowerCase();
-  },
-
-  username: function(u, o) {
-    o.username = (u.name + '@' + u.domain).toLowerCase();
-  },
-  
-  'emails.address': function(u, o) {
-    o.emails = [
-      {address: (u.name + '@' + u.domain).toLowerCase(), validated: false}
-    ];
-  },
-
-  'profile.name': function(u, o) {
-    o.profile = {
-      name: u.name + ' ' + u.surname,
-    };
-  },
-
-};
-
-var defaultUserFields = ['name', 'surname', 'fullname', 'email'];
-
 /* ---------- ---------- ---------- ---------- ---------- ---------- */
 /* Exported methods */
 /* ---------- ---------- ---------- ---------- ---------- ---------- */
@@ -252,8 +73,46 @@ Fake.color = function() {
   return randomElement(colors);
 };
 
+Fake.simpleSchemaDoc = function(schema, overrideDoc) {
+  var _MAX_INT = 9007199254740991;
+  var _MIN_INT = -9007199254740991;
+  var fakeObj = {};
+  _.each(schema._schemaKeys, function (key) {
+    var schemaKey = schema._schema[key],
+        type = schema._schema[key].type.name,
+        max = _.get(schemaKey, 'max', _MAX_INT),
+        min = _.get(schemaKey, 'min', _MIN_INT),
+        allowedValues = _.get(schemaKey, 'allowedValues', undefined),
+        value = null;
+    min = _clamp(min, _MIN_INT, max);
+    switch(type) {
+      case 'String':
+        if (allowedValues) {
+          value = Fake.fromArray(allowedValues);
+        } else {
+          max = _clamp(max, 0, 100);
+          min = _clamp(min, 0, max);
+          value = _getRandomString(min, max);
+        }
+        break;
+      case 'Number':
+        var decimal = _.get(schemaKey, 'decimal', false)
+        value = _getRandomNumber(min, max, !decimal);
+        break;
+      case 'Boolean':
+        value = _getRandomNumber(0, 1) > 0.5;
+        break;
+    }
+    if(_.isString(value) || _.isNumber(value) || _.isBoolean(value)) {
+      lodash.set(fakeObj, key, value);
+    }
+  });
 
+  if (!_.isEmpty(overrideDoc)) {
+    _.each(_.keys(overrideDoc), function (key) {
+      _.set(fakeObj, key, overrideDoc[key]);
+    });
+  }
 
-
-
-
+  return fakeObj;
+};
