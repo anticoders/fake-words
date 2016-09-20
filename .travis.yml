@@ -4,4 +4,3 @@ node_js:
 sudo: required
 before_install:
   - "curl -L http://git.io/ejPSng | /bin/sh"
-script: meteor test-packages ./
