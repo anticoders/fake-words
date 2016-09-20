@@ -5,7 +5,7 @@ This package is now called `muqube:fake`.
 
 
 
-# Fake text and data generator for Meteor.js
+# Fake text and data generator for Meteor.js [![Build Status](https://travis-ci.org/muqube/meteor-fake.svg?branch=master)](https://travis-ci.org/muqube/meteor-fake)
 
 From an article about *Lorem ipsum*:
 
