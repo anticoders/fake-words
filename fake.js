@@ -56,7 +56,7 @@ var colors = [
   'gray', 'indianred', 'khaki', 'lightcoral', 'lightsalmon', 'lightyellow',
   'maroon', 'mistyrose', 'navajowhite', 'mocassin', 'orange', 'orangered',
   'peru', 'red', 'rosybrown', 'saddlebrown', 'sandybrown', 'sienna',
-  'silver', 'slategray', 'tan', 'tomato', 'yeal', 'navy', 'black',
+  'silver', 'slategray', 'tan', 'tomato', 'teal', 'navy', 'black',
 ];
 
 
