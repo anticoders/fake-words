@@ -1,20 +1,13 @@
-/* ---------- ---------- ---------- ---------- ---------- ---------- */
-/* Exported methods */
-/* ---------- ---------- ---------- ---------- ---------- ---------- */
+import {Match} from "meteor/check";
 
+SimpleSchema.extendOptions({
+  fake: Match.Optional(Function)
+});
 
 Fake = {};
 
-
-
-Fake.user = function(params) {
-  var fields;
-
-  if(params && params.fields) {
-    fields = params.fields;
-  } else {
-    fields = defaultUserFields;
-  }
+Fake.user = function(params = {}) {
+  var {fields = defaultUserFields} = params;
 
   var user = {
     name: getName(),
@@ -63,7 +56,7 @@ Fake.paragraph = function(length) {
   return result;
 };
 
-
+Fake.imageUrl = getRandomImageUrl;
 
 Fake.fromArray = function(array) {  
   return randomElement(array);
@@ -76,26 +69,37 @@ Fake.color = function() {
 const _MAX_INT = 9007199254740991;
 const _MIN_INT = -9007199254740991;
 
-const defaultArrayLength = 2;
+const defaultParams = {
+  minArrayLength: 2,
+  maxArrayLength: 10,
+  callbacks: {}
+};
 
 const generateValue = function(schemaKey) {
+  let {allowedValues, min=_MIN_INT, max=_MAX_INT, regEx, fake} =schemaKey;
+
   var type = schemaKey.type.name,
-      max = _.get(schemaKey, 'max', _MAX_INT),
-      min = _.get(schemaKey, 'min', _MIN_INT),
-      allowedValues = _.get(schemaKey, 'allowedValues', undefined),
       value = null;
 
   min = _clamp(min, _MIN_INT, max);
 
   switch (type) {
     case 'String':
-      if (allowedValues) {
-        value = Fake.fromArray(allowedValues);
-      } else {
-        max = _clamp(max, 0, 100);
-        min = _clamp(min, 0, max);
-        value = _getRandomString(min, max);
+      switch (regEx) {
+        case SimpleSchema.RegEx.Id:
+          value = Random.id();
+          break;
+        default:
+          if (allowedValues) {
+            value = Fake.fromArray(allowedValues);
+          } else {
+            max = _clamp(max, 0, 100);
+            min = _clamp(min, 0, max);
+            value = _getRandomString(min, max);
+          }
+          break;
       }
+
       break;
     case 'Number':
       var decimal = _.get(schemaKey, 'decimal', false);
@@ -111,11 +115,15 @@ const generateValue = function(schemaKey) {
       value = {};
       break;
   }
+  if (_.isFunction(fake)) {
+    value = fake(schemaKey, value);
+  }
+
   return value;
 };
 
 /** Recursive create fields for inner objects and arrays **/
-const generateInnerObjectField = (schemaKey, deepness, obj) => {
+const generateInnerObjectField = (schemaKey, deepness, obj, params) => {
   if (!deepness || !_.isArray(deepness) || deepness.length === 0) return;
   let d = deepness[0];
 
@@ -126,38 +134,39 @@ const generateInnerObjectField = (schemaKey, deepness, obj) => {
     if (!obj[d]) obj[d] = [];
     let arr = obj[d];
     let create = (arr.length === 0);
-    let len = create ? defaultArrayLength : arr.length;
+    let len = create ? _getRandomNumber(params.minArrayLength, params.maxArrayLength,true) : arr.length;
 
     for (var j = 0; j < len; j++) {
       if (create) arr.push({});
-      generateInnerObjectField(schemaKey, _.drop(deepness, 2), arr[j]);
+      generateInnerObjectField(schemaKey, _.drop(deepness, 2), arr[j], params);
     }
   }
-  else if (d === ''){
+  else if (d === '') {
     if (!obj[d]) obj[d] = {};
   }
   else {
     if (!obj[d]) obj[d] = {};
-    generateInnerObjectField(schemaKey, _.drop(deepness, 1), obj[d]);
+    generateInnerObjectField(schemaKey, _.drop(deepness, 1), obj[d], params);
   }
 };
 
 /** Generate one instance accordingly to schema **/
-Fake.simpleSchemaDoc = function(schema, overrideDoc={}) {
+Fake.simpleSchemaDoc = function(schema, overrideDoc={}, params={}) {
   var fakeObj = {};
+  params = _.defaults({},params,defaultParams);
   _.each(schema._schemaKeys, function (key) {
     const schemaKey = schema._schema[key];
     let deepness = key.split('.'); // calculate if that field is description of inner object
     if (deepness.length > 1) {
-      generateInnerObjectField(schemaKey, deepness, fakeObj);
+      generateInnerObjectField(schemaKey, deepness, fakeObj, params);
     } else { // if it is just field in schema, not object or [Object]
-      fakeObj[key] = overrideDoc[key] || generateValue(schemaKey);
+      fakeObj[key] = generateValue(schemaKey);
     }
   });
-  return fakeObj;
+  return _.defaults({}, overrideDoc, fakeObj);
 };
 
-/* Generate array if objects using simple-schema */
+/** Generate array if objects using simple-schema **/
 Fake.simpleSchemaArray = function(schema, length = 1, initialDoc = {}) {
   let result = [];
   for (var i = 0; i < length; i++) {

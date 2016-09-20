@@ -9,6 +9,7 @@ Package.describe({
 Package.on_use(function (api, where) {
   api.use(["erasaur:meteor-lodash@3.10.1_1"]);
   api.use(["ecmascript"]);
+  api.use(["aldeed:simple-schema"]); //TODO: use it or not ?
   api.export('Fake', ['client', 'server']);
   api.add_files(
       [
