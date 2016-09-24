@@ -244,7 +244,7 @@ Fake.paragraph = function(length) {
 
 
 
-Fake.fromArray = function(array) {  
+Fake.fromArray = function(array) {
   return randomElement(array);
 };
 
