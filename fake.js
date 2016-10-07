@@ -254,6 +254,50 @@ Fake.color = function() {
 
 
 
+var _getRandomString = function (min, max) {
+  var length = Math.round(Math.random() * (max - min)) + min;
+  var s = '', ds = _.truncate(Fake.sentence(), {length: length, omission: '.'});
+  while ((s.length + ds.length) <= length) {
+    s += ds;
+    ds = Fake.sentence();
+  }
+  return s;
+};
 
+var _getRandomNumber = function (min, max, isInteger) {
+  var r = Math.random() * (max - min) + min;
+  if (isInteger)
+    r = Math.round(r);
+  return r;
+};
 
+Fake.simpleSchemaDoc = function(schema) {
+  var fakeObj = {};
+  _.each(schema._schemaKeys, function (key) {
+    var schemaKey = schema._schema[key],
+        type = schema._schema[key].type.name,
+        max = _.get(schemaKey, 'max', Number.MAX_SAFE_INTEGER),
+        min = _.get(schemaKey, 'min', Number.MIN_SAFE_INTEGER),
+        value = null;
+    min = _.clamp(min, Number.MIN_SAFE_INTEGER, max);
+    switch(type) {
+      case 'String':
+        max = _.clamp(max, 0, 100);
+        min = _.clamp(min, 0, max);
+        value = _getRandomString(min, max);
+        break;
+      case 'Number':
+        var decimal = _.get(schemaKey, 'decimal', false)
+        value = _getRandomNumber(min, max, !decimal);
+        break;
+      case 'Boolean':
+        value = _getRandomNumber(0, 1) > 0.5;
+        break;
+    }
+    if(_.isString(value) || _.isNumber(value) || _.isBoolean(value)) {
+      lodash.set(fakeObj, key, value);
+    }
+  });
 
+  return fakeObj;
+};
