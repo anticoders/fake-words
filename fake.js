@@ -252,8 +252,11 @@ Fake.color = function() {
   return randomElement(colors);
 };
 
-
-
-
-
-
+Fake.fromCollection = function(collection) {
+  var c = collection.find({}, {fields: {_id: 1}});
+  var a = [];
+  for (var i in c) {
+    a[i] = c[i]._id;
+  }
+  return randomElement(a);
+};
