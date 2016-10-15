@@ -88,7 +88,7 @@ Returns a random word.
     }
 
 *Optional params:*
- 
+
 - `fields`: Decide what fields will be included in the result object. Possible values:
     - name
     - surname
@@ -131,6 +131,28 @@ Selects a random element from provided array.
     fake.fromArray(['banana', 'apple', 'strawberry', 'raspberry', 'pear']);
     // 'pear'
 
+&nbsp;
 
+&nbsp;
 
+### `Fake.lat()`
 
+Returns a random latitude coordinate.
+
+*Example:*
+
+    Fake.lat()
+    // -71.6667067
+
+&nbsp;
+
+&nbsp;
+
+### `Fake.long()`
+
+Returns a random longitude coordinate.
+
+*Example:*
+
+    Fake.long()
+    // 113.8461997

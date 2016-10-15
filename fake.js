@@ -160,7 +160,7 @@ var attachUserField = {
   username: function(u, o) {
     o.username = (u.name + '@' + u.domain).toLowerCase();
   },
-  
+
   'emails.address': function(u, o) {
     o.emails = [
       {address: (u.name + '@' + u.domain).toLowerCase(), validated: false}
@@ -244,7 +244,7 @@ Fake.paragraph = function(length) {
 
 
 
-Fake.fromArray = function(array) {  
+Fake.fromArray = function(array) {
   return randomElement(array);
 };
 
@@ -253,7 +253,10 @@ Fake.color = function() {
 };
 
 
+Fake.lat = function(){
+  return Math.round((Math.random()*(0,180)-90)*10000000)/10000000;
+}
 
-
-
-
+Fake.long = function(){
+  return Math.round((Math.random()*(0,360)-180)*10000000)/10000000;
+}
