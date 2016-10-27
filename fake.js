@@ -27,14 +27,25 @@ Fake.user = function(params = {}) {
 
 Fake.word = function() {
   var result = getWord();
-  result = result.slice(0,1).toUpperCase() + result.slice(1).toLowerCase();;
+  result = result.slice(0,1).toUpperCase() + result.slice(1).toLowerCase();
+  return result;
+};
+
+Fake.name = function() {
+  var result = getWord();
+  result = result.slice(0,1).toUpperCase() + result.slice(1).toLowerCase();
+  return result;
+};
+
+Fake.surname = function() {
+  var result = getWord();
+  result = result.slice(0,1).toUpperCase() + result.slice(1).toLowerCase();
   return result;
 };
 
 Fake.sentence = function(length) {
-  if(!length) {
-    var length = 4 + Math.floor(Math.random() * 8);
-  }
+  if(!length)
+    length = 4 + Math.floor(Math.random() * 8);
   var ending = (Math.random() < 0.95) ? '.' : (Math.random() < 0.5) ? '!' : '?';
   var result = getWord();
   result = result.slice(0,1).toUpperCase() + result.slice(1).toLowerCase();
@@ -43,7 +54,6 @@ Fake.sentence = function(length) {
   }
   return result + ending;
 };
-
 
 Fake.paragraph = function(length) {
   if(!length) {
@@ -164,6 +174,12 @@ Fake.simpleSchemaDoc = function(schema, overrideDoc={}, params={}) {
     }
   });
   return _.defaults({}, overrideDoc, fakeObj);
+};
+
+Fake.simpleSchemaCreateDoc = (collection, overrideDoc, params) => {
+  const doc = Fake.simpleSchemaDoc(collection._c2._simpleSchema, overrideDoc, params);
+  doc._id = collection.insert(doc);
+  return doc;
 };
 
 /** Generate array if objects using simple-schema **/
