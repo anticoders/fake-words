@@ -247,6 +247,33 @@ output:
 Returns an array of random objects created from [SimpleSchema](http://github.com/aldeed/meteor-simple-schema) definition. If a preset is provided, then fields are pre-populated with values in the preset.
 of use cycle of Fake.simpleSchemaDoc instead; 
 
+
+### "fake" field at schema object
+
+You can add some custom fake data for field using "fake" field when you create SimpleSchema object.
+
+&nbsp;
+Code bottom set value of field "user" with real user id from Meteor.users.
+`
+    const SchemaObject = new SimpleSchema({
+        value: {
+            optional: false,
+            type: String
+        },
+        user: {
+            optional: false,
+            type: Object,
+            blackbox: true,
+            fake: () => {
+                let u = Meteor.users.findOne();
+                const {_id, profile: {firstName, lastName}} = u;
+                let res = {_id, firstName, lastName};
+                return res;
+            }
+        }
+    });
+`
+&nbsp;
 ## History
 
 This package is forked from `anti:fake`. I forked it and added some modifications to support simple schema docs generation.
