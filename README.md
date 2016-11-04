@@ -252,9 +252,8 @@ of use cycle of Fake.simpleSchemaDoc instead;
 
 You can add some custom fake data for field using "fake" field when you create SimpleSchema object.
 
-&nbsp;
 Code bottom set value of field "user" with real user id from Meteor.users.
-`
+```
     const SchemaObject = new SimpleSchema({
         value: {
             optional: false,
@@ -272,8 +271,8 @@ Code bottom set value of field "user" with real user id from Meteor.users.
             }
         }
     });
-`
-&nbsp;
+```
+
 ## History
 
 This package is forked from `anti:fake`. I forked it and added some modifications to support simple schema docs generation.
