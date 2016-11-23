@@ -138,6 +138,9 @@ var randomElement = function(array) {
   return array[Math.floor(Math.random() * array.length)];
 };
 
+var generateEmailAddress = function (name, domain) {
+    return (name + '@' + domain).toLowerCase();
+};
 
 var attachUserField = {
 
@@ -154,16 +157,16 @@ var attachUserField = {
   },
 
   email: function(u, o) {
-    o.email = (u.name + '@' + u.domain).toLowerCase();
+    o.email = generateEmailAddress(u.name, u.domain);
   },
 
   username: function(u, o) {
-    o.username = (u.name + '@' + u.domain).toLowerCase();
+    o.username = generateEmailAddress(u.name, u.domain);
   },
-  
+
   'emails.address': function(u, o) {
     o.emails = [
-      {address: (u.name + '@' + u.domain).toLowerCase(), validated: false}
+      {address: generateEmailAddress(u.name, u.domain), validated: false}
     ];
   },
 
@@ -244,7 +247,7 @@ Fake.paragraph = function(length) {
 
 
 
-Fake.fromArray = function(array) {  
+Fake.fromArray = function(array) {
   return randomElement(array);
 };
 
@@ -252,8 +255,6 @@ Fake.color = function() {
   return randomElement(colors);
 };
 
-
-
-
-
-
+Fake.emailAddress = function () {
+    return generateEmailAddress(getName(), getDomain());
+}
