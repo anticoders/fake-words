@@ -104,7 +104,6 @@ Returns a random word.
             fields: ['name', 'username', 'emails.address', 'profile.name'],
         });
 
-
 &nbsp;
 
 &nbsp;
@@ -140,7 +139,13 @@ Selects a random element from provided array.
 
 Returns a random object created from [SimpleSchema](http://github.com/aldeed/meteor-simple-schema) definition. If a preset is provided, then fields are pre-populated with values in the preset.
 
-Only `Number`, `String` and `Boolean` type fields are supported at the moment. 
+Supported types:
+* `Number`
+* `String`
+* `Boolean`
+* `Date`
+* `Object`
+* `[Object]` SimpleSchema object also 
 
 These options are supported for `Number` type:
 
@@ -232,6 +237,41 @@ output:
         "location": "evelo",
         "weatherType": "stormy"
     }
+
+&nbsp;
+
+&nbsp;
+
+### `Fake.simpleSchemaArray(schema, [length], [initialDoc])`
+
+Returns an array of random objects created from [SimpleSchema](http://github.com/aldeed/meteor-simple-schema) definition. If a preset is provided, then fields are pre-populated with values in the preset.
+of use cycle of Fake.simpleSchemaDoc instead; 
+
+
+### "fake" field at schema object
+
+You can add some custom fake data for field using "fake" field when you create SimpleSchema object.
+
+Code bottom set value of field "user" with real user id from Meteor.users.
+```
+    const SchemaObject = new SimpleSchema({
+        value: {
+            optional: false,
+            type: String
+        },
+        user: {
+            optional: false,
+            type: Object,
+            blackbox: true,
+            fake: () => {
+                let u = Meteor.users.findOne();
+                const {_id, profile: {firstName, lastName}} = u;
+                let res = {_id, firstName, lastName};
+                return res;
+            }
+        }
+    });
+```
 
 ## History
 
