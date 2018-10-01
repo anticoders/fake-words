@@ -106,11 +106,11 @@ var randomElement = function(array) {
 var fake = {
 
   user: function() {
-    var name = randomElement[names];
+    var name = randomElement(names);
     return {
       firstName: name,
       lastName: capitalize(getWord(3)),
-      domain: (name + '@' + getWord(2) + randomElement[domains]).toLowerCase(),
+      domain: (name + '@' + getWord(2) + randomElement(domains)).toLowerCase(),
     };
   },
 
