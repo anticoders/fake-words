@@ -110,7 +110,7 @@ var fake = {
     return {
       firstName: name,
       lastName: capitalize(getWord(3)),
-      domain: (name + '@' + getWord(2) + randomElement(domains)).toLowerCase(),
+      email: (name + '@' + getWord(2) + randomElement(domains)).toLowerCase(),
     };
   },
 
