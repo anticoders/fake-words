@@ -1,14 +1,9 @@
-
-
-
-
-/* ---------- ---------- ---------- ---------- ---------- ---------- */
+/* ------------------------------------------------------------ */
 /* Source arrays */
-/* ---------- ---------- ---------- ---------- ---------- ---------- */
+/* ------------------------------------------------------------ */
 
 
 /* Most common syllabes in English language */
-
 var syllabes = [
   'the','ing','er','a','ly','ed','i','es','re','tion','in','e','con','y','ter','ex','al','de','com','o','di','en','an','ty','ry','u',
   'ti','ri','be','per','to','pro','ac','ad','ar','ers','ment','or','tions','ble','der','ma','na','si','un','at','dis','ca','cal','man','ap',
@@ -19,10 +14,7 @@ var syllabes = [
   'ern','eve','hap','ies','ket','lec','main','mar','mis','my','nal','ness','ning','nu','oc','pres','sup','te','ted','tem','tin','tri','tro','up',
 ];
 
-var syllabesLength = syllabes.length;
-
 /* Popular names in several English-speaking countries */
-
 var names = [
   'Abigail','Alice','Amelia','Angelina','Ann',
   'Ashley','Avery','Barbara','Brianna','Camila',
@@ -48,7 +40,6 @@ var names = [
 
 /* Sample colors */
 /* TODO: Split them to several palettes and allow choice of which palettes to use, ie. warm, cool, grays, greens, etc. */
-
 var colors = [
   'antiquewhite', 'brown', 'chocolate', 'coral', 'crimson',
   'darkgray', 'darkred', 'darkorange', 'darksalmon',
@@ -59,18 +50,13 @@ var colors = [
   'silver', 'slategray', 'tan', 'tomato', 'teal', 'navy', 'black',
 ];
 
-
-var namesLength = names.length;
-
 /* Domain suffixes */
-
 var domains = [
   '.net', '.org', '.edu', '.com',
   '.com', '.com', '.com', '.com',
 ];
 
 /* Frequency table for word lengths */
-
 var wordLengths = [
   1, 1,
   2, 2, 2, 2, 2, 2, 2,
@@ -80,42 +66,20 @@ var wordLengths = [
 ];
 
 /* Frequency table for random syllabes */
-
 var syllabeCounts = [
-  10,
-  15,
-  20,
-  25,
-
-  30,
-  35,
-  40,
-  45,
-
-  50,
-  75,
-  100,
-  125,
-
-  150,
-  175,
-  175,
-  175,
+  10, 15, 20, 25,
+  30, 35, 40, 45,
+  50, 75, 100, 125,
+  150, 175, 175, 175,
 ];
 
 
-
-/* ---------- ---------- ---------- ---------- ---------- ---------- */
+/* ------------------------------------------------------------ */
 /* Utility methods */
-/* ---------- ---------- ---------- ---------- ---------- ---------- */
-
+/* ------------------------------------------------------------ */
 
 var capitalize = function(str) {
   return str.slice(0,1).toUpperCase() + str.slice(1).toLowerCase();
-};
-
-var getName = function() {
-  return names[Math.floor(Math.random() * namesLength)];
 };
 
 var getWord = function(min, max) {
@@ -130,130 +94,62 @@ var getWord = function(min, max) {
   return word;
 };
 
-var getDomain = function() {
-  return getWord(2) + domains[Math.floor(Math.random() * 8)];
-};
-
 var randomElement = function(array) {
   return array[Math.floor(Math.random() * array.length)];
 };
 
 
-var attachUserField = {
-
-  name: function(u, o) {
-    o.name = u.name;
-  },
-
-  surname: function(u, o) {
-    o.surname = u.surname;
-  },
-
-  fullname: function(u, o) {
-    o.fullname = u.name + ' ' + u.surname;
-  },
-
-  email: function(u, o) {
-    o.email = (u.name + '@' + u.domain).toLowerCase();
-  },
-
-  username: function(u, o) {
-    o.username = (u.name + '@' + u.domain).toLowerCase();
-  },
-  
-  'emails.address': function(u, o) {
-    o.emails = [
-      {address: (u.name + '@' + u.domain).toLowerCase(), validated: false}
-    ];
-  },
-
-  'profile.name': function(u, o) {
-    o.profile = {
-      name: u.name + ' ' + u.surname,
-    };
-  },
-
-};
-
-var defaultUserFields = ['name', 'surname', 'fullname', 'email'];
-
 /* ---------- ---------- ---------- ---------- ---------- ---------- */
 /* Exported methods */
 /* ---------- ---------- ---------- ---------- ---------- ---------- */
 
+var fake = {
 
-Fake = {};
+  user: function() {
+    var name = randomElement[names];
+    return {
+      firstName: name,
+      lastName: capitalize(getWord(3)),
+      domain: (name + '@' + getWord(2) + randomElement[domains]).toLowerCase(),
+    };
+  },
 
+  word: function() {
+    return capitalize(getWord());
+  },
 
+  sentence: function(length) {
+    if(!length) {
+      var length = 4 + Math.floor(Math.random() * 8);
+    }
+    var ending = (Math.random() < 0.95) ? '.' : (Math.random() < 0.5) ? '!' : '?';
+    var result = capitalize(getWord());
+    for(var i = 1; i < length; ++i) {
+      result += ' ' + getWord();
+    }
+    return result + ending;
+  },
 
-Fake.user = function(params) {
-  var fields;
+  paragraph: function(length) {
+    if(!length) {
+      length = 6 + Math.floor(Math.random() * 8);
+    }
+    var result = fake.sentence();
+    for(var i = 1; i < length; ++i) {
+      result += ' ' + fake.sentence();
+    }
+    return result;
+  },
 
-  if(params && params.fields) {
-    fields = params.fields;
-  } else {
-    fields = defaultUserFields;
-  }
+  fromArray: function(array) {  
+    return randomElement(array);
+  },
 
-  var user = {
-    name: getName(),
-    surname: capitalize(getWord(3)),
-    domain: getDomain(),
-  };
+  color: function() {
+    return randomElement(colors);
+  },
 
-  var result = {};
-
-  for(var i in fields) {
-    if(attachUserField[fields[i]])
-      attachUserField[fields[i]](user, result);
-  }
-
-  return result;
 };
 
-Fake.word = function() {
-  var result = getWord();
-  result = result.slice(0,1).toUpperCase() + result.slice(1).toLowerCase();;
-  return result;
-};
-
-Fake.sentence = function(length) {
-  if(!length) {
-    var length = 4 + Math.floor(Math.random() * 8);
-  }
-  var ending = (Math.random() < 0.95) ? '.' : (Math.random() < 0.5) ? '!' : '?';
-  var result = getWord();
-  result = result.slice(0,1).toUpperCase() + result.slice(1).toLowerCase();
-  for(var i = 1; i < length; ++i) {
-    result += ' ' + getWord();
-  }
-  return result + ending;
-};
-
-
-Fake.paragraph = function(length) {
-  if(!length) {
-    length = 6 + Math.floor(Math.random() * 8);
-  }
-  var result = Fake.sentence();
-  for(var i = 1; i < length; ++i) {
-    result += ' ' + Fake.sentence();
-  }
-  return result;
-};
-
-
-
-Fake.fromArray = function(array) {  
-  return randomElement(array);
-};
-
-Fake.color = function() {
-  return randomElement(colors);
-};
-
-
-
-
-
+module.exports = fake;
 

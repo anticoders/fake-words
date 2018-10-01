@@ -1,11 +1,4 @@
-Notes for updating to Meteor 0.9.0
-----------------------------------
-
-This package is now called `anti:fake`.
-
-
-
-# Fake text and data generator for Meteor.js
+# fake text and data generator
 
 From an article about *Lorem ipsum*:
 
@@ -21,7 +14,7 @@ If you need more functionality, like fake web address or geographical location, 
 
 # Usage
 
-    meteor add anti:fake
+    npm install --save fake-words
 
 
 # API
@@ -31,7 +24,7 @@ If you need more functionality, like fake web address or geographical location, 
 
 &nbsp;
 
-### `Fake.word()`
+### `fake.word()`
 
 Returns a random word.
 
@@ -44,7 +37,7 @@ Returns a random word.
 
 &nbsp;
 
-### `Fake.sentence([length])`
+### `fake.sentence([length])`
 
 *Sample result:*
 
@@ -59,7 +52,7 @@ Returns a random word.
 
 &nbsp;
 
-### `Fake.paragraph([length])`
+### `fake.paragraph([length])`
 
 
 *Sample result:*
@@ -76,40 +69,22 @@ Returns a random word.
 
 &nbsp;
 
-### `Fake.user([params])`
+### `fake.user()`
 
 *Sample result:*
 
     {
-      "name": "Kate",
-      "surname": "Belyto",
-      "fullname": "Kate Belyto",
+      "firstName": "Kate",
+      "lastName": "Belyto",
       "email": "kate@proespa.com",
     }
 
-*Optional params:*
- 
-- `fields`: Decide what fields will be included in the result object. Possible values:
-    - name
-    - surname
-    - fullname
-    - username
-    - email
-    - emails.address,
-    - profile.name
-
-*Example:*
-
-        Fake.user({
-            fields: ['name', 'username', 'emails.address', 'profile.name'],
-        });
-
 
 &nbsp;
 
 &nbsp;
 
-### `Fake.color()`
+### `fake.color()`
 
 Returns a random named html color.
 
@@ -122,7 +97,7 @@ Returns a random named html color.
 
 &nbsp;
 
-### `Fake.fromArray(customArray)`
+### `fake.fromArray(customArray)`
 
 Selects a random element from provided array.
 
