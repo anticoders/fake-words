@@ -29,7 +29,7 @@ var names = [
   'Alexander','Anthony','Benjamin','Brandon','Carter',
   'Charles','Charlie','Christian','Christopher','Daniel',
   'David','Deven','Dylan','Elijah','Eric',
-  'Ethan','Felix','Gabriel','George','Harry',
+  'Ethan','Felix','Gabriel','George','Harry','Helen',
   'Hudson','Hunter','Jack','Jacob','James',
   'Jason','Jayden','Jeremiah','John','Joseph',
   'Joshua','Justin','Kevin','Liam','Logan',
